@@ -8,6 +8,7 @@ public class PlayerView : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _deathSound;
     [SerializeField] private float _playerSpeed = 8f;
     [SerializeField] private float _maxVelocity = 4f;
 
@@ -100,6 +101,18 @@ public class PlayerView : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         _canShoot = true;
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D target)
+    {
+        if (target.CompareTag("Ball"))
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+    }
 
 }
