@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9013857573481545965}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Largest Ball
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa49cda9bc37f44cd8932b072abe62a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveRight: 0
-  _originalBall: {fileID: 0}
+  _moveDirection: 0
+  _childBall: {fileID: 0}
   _popSounds: []
   _forceX: 2.5
   _forceY: 0

@@ -4,16 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Largest Ball
-  - Large Ball
-  - Medium Ball
-  - Small Ball
-  - Tiny Ball
   - Projectile
   - Ceiling
   - Ground
   - Right Wall
   - Left Wall
+  - Ball
   layers:
   - Default
   - TransparentFX

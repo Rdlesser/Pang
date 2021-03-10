@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 1234389290946691584, guid: 84e5d69bb90214e72984d27ffa7d9116,
         type: 3}
       propertyPath: m_TagString
-      value: Small Ball
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 1234389290946691596, guid: 84e5d69bb90214e72984d27ffa7d9116,
         type: 3}
