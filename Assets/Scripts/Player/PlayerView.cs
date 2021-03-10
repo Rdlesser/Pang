@@ -84,11 +84,14 @@ public class PlayerView : MonoBehaviour
     {
         _canWalk = false;
 
-        Vector3 shootPosition = transform.position;
-        shootPosition.y += 0.5f * transform.lossyScale.y;
+        var playerTransform = transform;
+        var playerPosition = playerTransform.position;
+        
+        Vector3 shootPosition = playerPosition;
+        shootPosition.y += 0.5f * playerTransform.lossyScale.y;
 
         Instantiate(_projectile, shootPosition, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(_shootSound, transform.position);
+        AudioSource.PlayClipAtPoint(_shootSound, playerPosition);
         
         yield return new WaitForSeconds(0.2f);
 
