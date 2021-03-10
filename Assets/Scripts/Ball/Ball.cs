@@ -28,6 +28,20 @@ public class Ball : MonoBehaviour
         SetBallSpeed();
     }
 
+    private void Update()
+    {
+        MoveBallHorizontally();
+    }
+
+    private void MoveBallHorizontally()
+    {
+        float direction = _moveRight ? 1f : -1f;
+        var ballTransform = transform;
+        Vector3 newPosition = ballTransform.position;
+        newPosition.x += _forceX * Time.deltaTime * direction;
+        ballTransform.position = newPosition;
+    }
+
     private void SetBallSpeed()
     {
         _forceX = 2.5f;
