@@ -25,7 +25,6 @@ public class Ball : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        SetBallSpeed();
     }
 
     private void Update()
@@ -42,12 +41,6 @@ public class Ball : MonoBehaviour
         ballTransform.position = newPosition;
     }
 
-    private void SetBallSpeed()
-    {
-        _forceX = 2.5f;
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D target)
     {
         if (target.CompareTag("Ground"))
@@ -61,7 +54,7 @@ public class Ball : MonoBehaviour
         }
         else if (target.CompareTag("Left Wall"))
         {
-            _moveRight = true;
+            _moveRight = true; 
         }
     }
 
