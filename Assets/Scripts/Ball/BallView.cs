@@ -8,8 +8,8 @@ public enum MoveDirection
     Left
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Ball : MonoBehaviour
+
+public class BallView : MonoBehaviour
 {
 
     [SerializeField] private MoveDirection _moveDirection = MoveDirection.Right;
@@ -17,18 +17,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private AudioClip[] _popSounds;
     [SerializeField] private float _forceX = 2.5f;
     [SerializeField] private float _forceY;
-
-    public MoveDirection MoveRight
-    {
-        get => _moveDirection;
-        set => _moveDirection = value;
-    }
-
+    
     private Rigidbody2D _rigidbody;
     private GameObject _leftBall;
     private GameObject _rightBall;
-    private Ball _leftBallScript;
-    private Ball _rightBallScript;
+    private BallView _leftBallViewScript;
+    private BallView _rightBallViewScript;
     
     
 
@@ -41,6 +35,11 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         MoveBallHorizontally();
+    }
+    
+    public void SetMoveDirection(MoveDirection newDirection)
+    {
+        _moveDirection = newDirection;
     }
 
     private void MoveBallHorizontally()
@@ -76,15 +75,16 @@ public class Ball : MonoBehaviour
     
     private void InstantiateBalls()
     {
+        Debug.Log("Instantiating");
         if (_childBall != null)
         {
             var ballPosition = transform.position;
             _leftBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
-            _leftBallScript = _leftBall.GetComponent<Ball>();
-            _leftBallScript.MoveRight = MoveDirection.Left;
+            _leftBallViewScript = _leftBall.GetComponent<BallView>();
+            _leftBallViewScript.SetMoveDirection(MoveDirection.Left);
             _rightBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
-            _rightBallScript = _rightBall.GetComponent<Ball>();
-            _rightBallScript.MoveRight = MoveDirection.Right;
+            _rightBallViewScript = _rightBall.GetComponent<BallView>();
+            _rightBallViewScript.SetMoveDirection(MoveDirection.Right);
 
             _leftBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);
             _rightBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);

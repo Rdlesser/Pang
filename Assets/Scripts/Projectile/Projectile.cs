@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (target.GetComponent<Ball>() != null)
+        if (target.GetComponent<BallView>() != null)
         {
             Destroy(gameObject);
         }
