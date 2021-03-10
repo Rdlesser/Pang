@@ -1,17 +1,28 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum MoveDirection
+{
+    Right,
+    Left
+}
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ball : MonoBehaviour
 {
 
-    [SerializeField] private bool _moveRight;
-    [SerializeField] private GameObject _originalBall;
+    [SerializeField] private MoveDirection _moveDirection = MoveDirection.Right;
+    [SerializeField] private GameObject _childBall;
     [SerializeField] private AudioClip[] _popSounds;
     [SerializeField] private float _forceX = 2.5f;
     [SerializeField] private float _forceY;
+
+    public MoveDirection MoveRight
+    {
+        get => _moveDirection;
+        set => _moveDirection = value;
+    }
 
     private Rigidbody2D _rigidbody;
     private GameObject _leftBall;
@@ -34,7 +45,7 @@ public class Ball : MonoBehaviour
 
     private void MoveBallHorizontally()
     {
-        float direction = _moveRight ? 1f : -1f;
+        float direction = _moveDirection == MoveDirection.Right ? 1f : -1f;
         var ballTransform = transform;
         Vector3 newPosition = ballTransform.position;
         newPosition.x += _forceX * Time.deltaTime * direction;
@@ -50,12 +61,38 @@ public class Ball : MonoBehaviour
 
         if (target.CompareTag("Right Wall"))
         {
-            _moveRight = false;
+            _moveDirection = MoveDirection.Left;
         }
         else if (target.CompareTag("Left Wall"))
         {
-            _moveRight = true; 
+            _moveDirection = MoveDirection.Right; 
         }
+
+        if (target.CompareTag("Projectile"))
+        {
+            InstantiateBalls();
+        }
+    }
+    
+    private void InstantiateBalls()
+    {
+        if (_childBall != null)
+        {
+            var ballPosition = transform.position;
+            _leftBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
+            _leftBallScript = _leftBall.GetComponent<Ball>();
+            _leftBallScript.MoveRight = MoveDirection.Left;
+            _rightBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
+            _rightBallScript = _rightBall.GetComponent<Ball>();
+            _rightBallScript.MoveRight = MoveDirection.Right;
+
+            _leftBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);
+            _rightBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);
+            
+        }
+        
+        AudioSource.PlayClipAtPoint(_popSounds[Random.Range(0, _popSounds.Length)], transform.position);
+        Destroy(gameObject);
     }
 
 }
