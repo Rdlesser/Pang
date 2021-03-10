@@ -10,6 +10,8 @@ TagManager:
   - Small Ball
   - Tiny Ball
   - Projectile
+  - Ceiling
+  - Ground
   layers:
   - Default
   - TransparentFX
