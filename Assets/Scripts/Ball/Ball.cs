@@ -54,6 +54,15 @@ public class Ball : MonoBehaviour
         {
             _rigidbody.velocity = new Vector2(0, _forceY);
         }
+
+        if (target.CompareTag("Right Wall"))
+        {
+            _moveRight = false;
+        }
+        else if (target.CompareTag("Left Wall"))
+        {
+            _moveRight = true;
+        }
     }
 
 }
