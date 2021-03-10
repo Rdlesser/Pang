@@ -84,6 +84,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
+      propertyPath: _childBall
+      value: 
+      objectReference: {fileID: 4952415580307022857, guid: 3534f524aceb4413786a00f1faa9cc82,
+        type: 3}
+    - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
       propertyPath: _popSounds.Array.size
       value: 1
       objectReference: {fileID: 0}
