@@ -75,7 +75,12 @@ PrefabInstance:
     - target: {fileID: 2621118496181914878, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: m_Name
-      value: LargestBall
+      value: LargestBall Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
+      propertyPath: _forceY
+      value: 11.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 347ece152836349d59aa0179a7e186eb, type: 3}

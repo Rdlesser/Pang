@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2621118496181914877}
   - component: {fileID: 2621118496181914876}
   - component: {fileID: 2621118496181914879}
+  - component: {fileID: 9013857573481545965}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Largest Ball
@@ -93,7 +94,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -120,3 +121,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &9013857573481545965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621118496181914878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa49cda9bc37f44cd8932b072abe62a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveRight: 0
+  _originalBall: {fileID: 0}
+  _popSounds: []
+  _forceX: 2.5
+  _forceY: 0
