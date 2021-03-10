@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: _forceY
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2147426941953337370, guid: 3534f524aceb4413786a00f1faa9cc82,
+        type: 3}
+      propertyPath: _popSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 799f1e3d4c10a4ecb81cb8ac18819c11, type: 3}
     - target: {fileID: 4952415580307022853, guid: 3534f524aceb4413786a00f1faa9cc82,
         type: 3}
       propertyPath: m_RootOrder

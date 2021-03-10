@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
@@ -82,5 +82,15 @@ PrefabInstance:
       propertyPath: _forceY
       value: 11.5
       objectReference: {fileID: 0}
+    - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
+      propertyPath: _popSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
+      propertyPath: _popSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5df0d0b7c9d6441e1bb069623cfdc77b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 347ece152836349d59aa0179a7e186eb, type: 3}
