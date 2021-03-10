@@ -27,6 +27,12 @@ public class Projectile : MonoBehaviour
         if (target.CompareTag("Ceiling"))
         {
             Destroy(gameObject);
+            return;
+        }
+
+        if (target.GetComponent<Ball>() != null)
+        {
+            Destroy(gameObject);
         }
     }
 }

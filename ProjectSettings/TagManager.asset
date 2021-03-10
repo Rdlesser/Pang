@@ -12,6 +12,8 @@ TagManager:
   - Projectile
   - Ceiling
   - Ground
+  - Right Wall
+  - Left Wall
   layers:
   - Default
   - TransparentFX
