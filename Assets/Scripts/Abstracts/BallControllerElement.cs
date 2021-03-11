@@ -8,7 +8,7 @@ namespace Abstracts
     /// </summary>
     public abstract class BallControllerElement : MonoBehaviour
     {
-        // An array of all the level balls
+        // A List of all the level balls
         [SerializeField] protected List<BallViewElement> _levelBalls;
         
         private void Start()

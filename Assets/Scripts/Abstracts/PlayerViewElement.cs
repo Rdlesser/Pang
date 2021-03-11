@@ -4,7 +4,9 @@ using UnityEngine;
 namespace Abstracts
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class PlayerViewElement : MonoBehaviour, IInjectifiable<PlayerControllerElement>
+    public abstract class PlayerViewElement : MonoBehaviour, 
+                                              IInjectifiable<PlayerControllerElement>,
+                                              IInjectifiable<GameManagerElement>
     {
         [SerializeField] protected GameObject _projectile;
         [SerializeField] protected AudioClip _shootSound;
@@ -24,15 +26,18 @@ namespace Abstracts
         {
             _rigidbody = GetComponent<Rigidbody2D>();
         }
-
-        public abstract void Walk();
-
+        
+        /// <summary>
+        /// Method called by the controller to shoot a projectile
+        /// </summary>
+        /// <param name="projectile"></param>
         public abstract void Shoot(ProjectileViewElement projectile);
 
-        public abstract void ProjectileHitCeiling(ProjectileViewElement projectile);
-
-        public abstract void ProjectileHitBall(ProjectileViewElement projectile);
+        public abstract void Die();
+        
         public abstract void Inject(PlayerControllerElement injection);
+
+        public abstract void Inject(GameManagerElement gameManager);
     }
     
     

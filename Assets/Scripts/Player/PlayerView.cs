@@ -5,16 +5,28 @@ using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(Animator))]
     public class PlayerView : PlayerViewElement
     {
 
     #region Events
         
         private Action<PlayerViewElement> _onShootButtonPressed;
+        private Action<PlayerViewElement> _onPlayerHitByBall;
 
     #endregion
 
-        private bool _canWalk = true;
+    #region private fields
+
+        private Animator _animator;
+        private static readonly int DieAnimatorTrigger = Animator.StringToHash("Die");
+
+    #endregion
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         private void Update()
         {
@@ -22,7 +34,6 @@ namespace Player
             {
                 ShootButtonPressed();
             }
-            // Shoot();
         }
 
         private void ShootButtonPressed()
@@ -36,35 +47,31 @@ namespace Player
         }
 
 
-
-        public override void Walk()
+        private void Walk()
         {
             var force = 0f;
             var velocity = Mathf.Abs(_rigidbody.velocity.x);
 
             float horizontal = Input.GetAxis("Horizontal");
 
-            if (_canWalk)
+            if (horizontal > 0)
             {
-                if (horizontal > 0)
-                {
                     
-                    // moving right
-                    if (velocity < _maxVelocity)
-                    {
-                        force = _playerSpeed;
-                    }
-                }
-                else if (horizontal < 0)
-                    // moving left
+                // moving right
+                if (velocity < _maxVelocity)
                 {
-                    if (velocity < _maxVelocity)
-                    {
-                        force = -_playerSpeed;
-                    }
+                    force = _playerSpeed;
                 }
-            
             }
+            else if (horizontal < 0)
+                // moving left
+            {
+                if (velocity < _maxVelocity)
+                {
+                    force = -_playerSpeed;
+                }
+            }
+            
             _rigidbody.AddForce(new Vector2(force, 0));
         }
 
@@ -77,35 +84,36 @@ namespace Player
             shootPosition.y += 0.5f * playerTransform.lossyScale.y;
             projectile.transform.position = shootPosition;
             projectile.gameObject.SetActive(true);
+            AudioSource.PlayClipAtPoint(_shootSound, transform.position);
         }
 
-        public override void ProjectileHitCeiling(ProjectileViewElement projectile)
+        public override void Die()
         {
-            projectile.gameObject.SetActive(false);
-        }
-
-        public override void ProjectileHitBall(ProjectileViewElement projectile)
-        {
-            projectile.gameObject.SetActive(false);
+            _animator.SetTrigger(DieAnimatorTrigger);
         }
 
         public override void Inject(PlayerControllerElement injection)
         {
             _onShootButtonPressed += injection.ShootButtonPressed;
         }
-        
+
+        public override void Inject(GameManagerElement injection)
+        {
+            _onPlayerHitByBall += injection.OnPlayerHitByBall;
+        }
 
         private void OnTriggerEnter2D(Collider2D target)
         {
             if (target.CompareTag("Ball"))
             {
-                Death();
+                OnPlayerHitByBall();
             }
         }
 
-        public void Death()
+        public void OnPlayerHitByBall()
         {
             AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+            _onPlayerHitByBall?.Invoke(this);
         }
 
     }

@@ -16,12 +16,12 @@ namespace Player
 
         public override void ProjectileHitCeiling(ProjectileViewElement projectile)
         {
-            
+            projectile.gameObject.SetActive(false);
         }
 
         public override void ProjectileHitBall(ProjectileViewElement projectile)
         {
-            throw new System.NotImplementedException();
+            projectile.gameObject.SetActive(false);
         }
     }
 }
