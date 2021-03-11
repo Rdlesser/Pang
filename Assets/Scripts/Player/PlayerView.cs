@@ -36,7 +36,7 @@ namespace Player
             }
         }
 
-        private void ShootButtonPressed()
+        public void ShootButtonPressed()
         {
             _onShootButtonPressed?.Invoke(this);
         }
