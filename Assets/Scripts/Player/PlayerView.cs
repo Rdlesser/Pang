@@ -100,6 +100,7 @@ namespace Player
         public override void Die()
         {
             _animator.SetTrigger(DieAnimatorTrigger);
+            _canMove = false;
         }
 
         public override void Inject(PlayerControllerElement injection)
