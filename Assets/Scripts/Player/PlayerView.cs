@@ -123,9 +123,12 @@ namespace Player
 
         public void OnPlayerHitByBall()
         {
-            AudioSource.PlayClipAtPoint(_deathSound, transform.position);
-            _canMove = false;
-            _onPlayerHitByBall?.Invoke(this);
+            if (_canMove)
+            {
+                AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+                _canMove = false;
+                _onPlayerHitByBall?.Invoke(this);
+            }
         }
 
     }
