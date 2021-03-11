@@ -30,9 +30,12 @@ namespace Abstracts
         /// <summary>
         /// Method called by the controller to shoot a projectile
         /// </summary>
-        /// <param name="projectile"></param>
+        /// <param name="projectile"> The projectile to shoot </param>
         public abstract void Shoot(ProjectileViewElement projectile);
 
+        /// <summary>
+        /// Method called when the player needs to react to death
+        /// </summary>
         public abstract void Die();
         
         public abstract void Inject(PlayerControllerElement injection);

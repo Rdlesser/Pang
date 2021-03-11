@@ -6,7 +6,8 @@ using UnityEngine;
 namespace Abstracts
 {
     /// <summary>
-    /// An abstract class controlling the player
+    /// An abstract class controlling the player <br/>
+    /// and the player's ammo
     /// </summary>
     public abstract class PlayerControllerElement : MonoBehaviour
     {
@@ -18,7 +19,16 @@ namespace Abstracts
 
         private void Start()
         {
+            InstantiateAmmoPool();
+        }
+
+        /// <summary>
+        /// Instantiate the ammo pool
+        /// </summary>
+        private void InstantiateAmmoPool()
+        {
             _ammo = new List<ProjectileViewElement>();
+            // Create a list of bullets - an object pool, and inject thyself to all the bullets
             for (int i = 0; i < _bulletCount; i++)
             {
                 var projectile = Instantiate(_bullet);
@@ -64,6 +74,10 @@ namespace Abstracts
         /// <param name="projectile"> The projectile that hit a ball </param>
         public abstract void ProjectileHitBall(ProjectileViewElement projectile);
 
-        public abstract void PlayerDied(PlayerViewElement obj);
+        /// <summary>
+        /// Invoked when a player dies
+        /// </summary>
+        /// <param name="player">The player who died</param>
+        public abstract void PlayerDied(PlayerViewElement player);
     }
 }
