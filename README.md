@@ -21,3 +21,5 @@
         - Add background music - it's a little dull at the moment.
         - The game is built for a 1280X720 Display and doesn't respond well to wider screen resolutions - the side walls do not perfectly align with the camera bounds. Didn't want to dive deeply into fixing that as I feared I may "break" something else and lose points on account of the game not performing as expected. It is still playable on wider screens, but you may encounter "invisible wall" effects on the left and right side of the screen
         - Add a 2 player support for PC - adding another player would mean I would have to change the current implementation of the PlayerController
+        - Change the walls to edge colliders and make them "stick" to the camera borders
+        - Add powerups for multiple bullets and different types of projectiles
