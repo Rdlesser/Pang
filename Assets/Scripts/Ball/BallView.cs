@@ -1,93 +1,61 @@
 ﻿using System;
+using Abstracts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum MoveDirection
-{
-    Right,
-    Left
-}
-
-
-public class BallView : MonoBehaviour
+public class BallView : BallViewElement
 {
 
-    [SerializeField] private MoveDirection _moveDirection = MoveDirection.Right;
-    [SerializeField] private GameObject _childBall;
-    [SerializeField] private AudioClip[] _popSounds;
-    [SerializeField] private float _forceX = 2.5f;
-    [SerializeField] private float _forceY;
+#region Events
+
+    private Action<BallViewElement> _onBallHitGroundEvent;
+    private Action<BallViewElement, MoveDirection> _onBallHitWallEvent;
+    private Action<BallViewElement> _onBallHitProjectileEvent;
+    private Action<BallViewElement, BallViewElement> _onBallSplitEvent;
     
-    private Rigidbody2D _rigidbody;
+
+#endregion
+    
     private GameObject _leftBall;
     private GameObject _rightBall;
-    private BallView _leftBallViewScript;
-    private BallView _rightBallViewScript;
+    private BallViewElement _leftBallViewScript;
+    private BallViewElement _rightBallViewScript;
     
+
     
 
-    // Start is called before the first frame update
-    void Awake()
+    protected override void OnHitGround()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _onBallHitGroundEvent?.Invoke(this);
     }
 
-    private void Update()
+    public override void Bounce()
     {
-        MoveBallHorizontally();
-    }
-    
-    public void SetMoveDirection(MoveDirection newDirection)
-    {
-        _moveDirection = newDirection;
+        _rigidbody.velocity = new Vector2(0, _bounceForce);
     }
 
-    private void MoveBallHorizontally()
+    protected override void OnHitWall()
     {
-        float direction = _moveDirection == MoveDirection.Right ? 1f : -1f;
-        var ballTransform = transform;
-        Vector3 newPosition = ballTransform.position;
-        newPosition.x += _forceX * Time.deltaTime * direction;
-        ballTransform.position = newPosition;
+        _onBallHitWallEvent?.Invoke(this, _moveDirection);
     }
 
-    private void OnTriggerEnter2D(Collider2D target)
+    protected override void OnHitProjectile()
     {
-        if (target.CompareTag("Ground"))
-        {
-            _rigidbody.velocity = new Vector2(0, _forceY);
-        }
-
-        if (target.CompareTag("Right Wall"))
-        {
-            _moveDirection = MoveDirection.Left;
-        }
-        else if (target.CompareTag("Left Wall"))
-        {
-            _moveDirection = MoveDirection.Right; 
-        }
-
-        if (target.CompareTag("Projectile"))
-        {
-            InstantiateBalls();
-        }
+        _onBallHitProjectileEvent?.Invoke(this);
     }
-    
-    private void InstantiateBalls()
+
+    public override void SplitBall()
     {
-        Debug.Log("Instantiating");
         if (_childBall != null)
         {
             var ballPosition = transform.position;
             _leftBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
-            _leftBallViewScript = _leftBall.GetComponent<BallView>();
-            _leftBallViewScript.SetMoveDirection(MoveDirection.Left);
+            _leftBallViewScript = _leftBall.GetComponent<BallViewElement>();
+            
             _rightBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
-            _rightBallViewScript = _rightBall.GetComponent<BallView>();
-            _rightBallViewScript.SetMoveDirection(MoveDirection.Right);
+            _rightBallViewScript = _rightBall.GetComponent<BallViewElement>();
 
-            _leftBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);
-            _rightBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2.5f);
+            _onBallSplitEvent?.Invoke(_leftBallViewScript, _rightBallViewScript);
             
         }
         
@@ -95,4 +63,11 @@ public class BallView : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public override void Inject(BallControllerElement injection)
+    {
+        _onBallHitGroundEvent += injection.OnHitGround;
+        _onBallHitWallEvent += injection.OnHitWall;
+        _onBallHitProjectileEvent += injection.OnHitProjectile;
+        _onBallSplitEvent += injection.OnBallSplit;
+    }
 }

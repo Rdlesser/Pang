@@ -1,118 +1,102 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using Abstracts;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerView : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private GameObject _projectile;
-    [SerializeField] private AudioClip _shootSound;
-    [SerializeField] private AudioClip _deathSound;
-    [SerializeField] private float _playerSpeed = 8f;
-    [SerializeField] private float _maxVelocity = 4f;
+    public class PlayerView : PlayerViewElement
+    {
 
-    private Rigidbody2D _rigidbody;
-
-    private bool _canWalk = true;
-    private bool _canShoot = true;
+        private bool _canWalk = true;
+        private bool _canShoot = true;
     
-    // Start is called before the first frame update
-    public void Start()
-    {
-        Init();
-    }
-
-    private void Update()
-    {
-        Shoot();
-    }
-
-    private void FixedUpdate()
-    {
-        Walk();
-    }
-
-
-    private void Init()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    public void Walk()
-    {
-        var force = 0f;
-        var velocity = Mathf.Abs(_rigidbody.velocity.x);
-
-        float horizontal = Input.GetAxis("Horizontal");
-
-        if (_canWalk)
+        private void Update()
         {
-            if (horizontal > 0)
+            Shoot();
+        }
+
+        private void FixedUpdate()
+        {
+            Walk();
+        }
+
+
+
+        public override void Walk()
+        {
+            var force = 0f;
+            var velocity = Mathf.Abs(_rigidbody.velocity.x);
+
+            float horizontal = Input.GetAxis("Horizontal");
+
+            if (_canWalk)
             {
-                // moving right
-                if (velocity < _maxVelocity)
+                if (horizontal > 0)
                 {
-                    force = _playerSpeed;
+                    // moving right
+                    if (velocity < _maxVelocity)
+                    {
+                        force = _playerSpeed;
+                    }
                 }
-            }
-            else if (horizontal < 0)
-                // moving left
-            {
-                if (velocity < _maxVelocity)
+                else if (horizontal < 0)
+                    // moving left
                 {
-                    force = -_playerSpeed;
+                    if (velocity < _maxVelocity)
+                    {
+                        force = -_playerSpeed;
+                    }
                 }
-            }
             
+            }
+            _rigidbody.AddForce(new Vector2(force, 0));
         }
-        _rigidbody.AddForce(new Vector2(force, 0));
-    }
 
-    public void Shoot()
-    {
-        if (Input.GetButton("Fire1"))
+        public override void Shoot()
         {
-            if (_canShoot)
+            if (Input.GetButton("Fire1"))
             {
-                _canShoot = false;
-                StartCoroutine(ShootCoroutine());
+                if (_canShoot)
+                {
+                    _canShoot = false;
+                    StartCoroutine(ShootCoroutine());
+                }
             }
         }
-    }
     
-    public IEnumerator ShootCoroutine()
-    {
-        _canWalk = false;
-
-        var playerTransform = transform;
-        var playerPosition = playerTransform.position;
-        
-        Vector3 shootPosition = playerPosition;
-        shootPosition.y += 0.5f * playerTransform.lossyScale.y;
-
-        Instantiate(_projectile, shootPosition, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(_shootSound, playerPosition);
-        
-        yield return new WaitForSeconds(0.2f);
-
-        _canWalk = true;
-
-        yield return new WaitForSeconds(0.3f);
-        _canShoot = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D target)
-    {
-        if (target.CompareTag("Ball"))
+        public IEnumerator ShootCoroutine()
         {
-            Death();
+            _canWalk = false;
+
+            var playerTransform = transform;
+            var playerPosition = playerTransform.position;
+        
+            Vector3 shootPosition = playerPosition;
+            shootPosition.y += 0.5f * playerTransform.lossyScale.y;
+
+            Instantiate(_projectile, shootPosition, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_shootSound, playerPosition);
+        
+            yield return new WaitForSeconds(0.2f);
+
+            _canWalk = true;
+
+            yield return new WaitForSeconds(0.3f);
+            _canShoot = true;
         }
-    }
 
-    public void Death()
-    {
-        AudioSource.PlayClipAtPoint(_deathSound, transform.position);
-    }
+        private void OnTriggerEnter2D(Collider2D target)
+        {
+            if (target.CompareTag("Ball"))
+            {
+                Death();
+            }
+        }
 
+        public void Death()
+        {
+            AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+        }
+
+    }
 }

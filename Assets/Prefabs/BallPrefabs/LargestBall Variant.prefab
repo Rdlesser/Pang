@@ -45,17 +45,17 @@ PrefabInstance:
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2621118496181914866, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
@@ -77,6 +77,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargestBall Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2621118496181914879, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: _forceY
@@ -88,6 +93,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4952415580307022857, guid: 3534f524aceb4413786a00f1faa9cc82,
         type: 3}
+    - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
+        type: 3}
+      propertyPath: _bounceForce
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 9013857573481545965, guid: 347ece152836349d59aa0179a7e186eb,
         type: 3}
       propertyPath: _popSounds.Array.size

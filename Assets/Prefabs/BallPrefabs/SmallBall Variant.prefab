@@ -95,6 +95,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5212595867988037139, guid: 84e5d69bb90214e72984d27ffa7d9116,
         type: 3}
+      propertyPath: _bounceForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212595867988037139, guid: 84e5d69bb90214e72984d27ffa7d9116,
+        type: 3}
       propertyPath: _popSounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: a8b8df239c29d434792a4e694d9be69d, type: 3}
