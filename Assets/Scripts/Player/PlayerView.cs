@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Abstracts;
 using UnityEngine;
 
@@ -7,12 +8,26 @@ namespace Player
     public class PlayerView : PlayerViewElement
     {
 
+    #region Events
+        
+        private Action<PlayerViewElement> _onShootButtonPressed;
+
+    #endregion
+
         private bool _canWalk = true;
-        private bool _canShoot = true;
-    
+
         private void Update()
         {
-            Shoot();
+            if (Input.GetButton("Fire1"))
+            {
+                ShootButtonPressed();
+            }
+            // Shoot();
+        }
+
+        private void ShootButtonPressed()
+        {
+            _onShootButtonPressed?.Invoke(this);
         }
 
         private void FixedUpdate()
@@ -33,6 +48,7 @@ namespace Player
             {
                 if (horizontal > 0)
                 {
+                    
                     // moving right
                     if (velocity < _maxVelocity)
                     {
@@ -52,38 +68,32 @@ namespace Player
             _rigidbody.AddForce(new Vector2(force, 0));
         }
 
-        public override void Shoot()
+        public override void Shoot(ProjectileViewElement projectile)
         {
-            if (Input.GetButton("Fire1"))
-            {
-                if (_canShoot)
-                {
-                    _canShoot = false;
-                    StartCoroutine(ShootCoroutine());
-                }
-            }
-        }
-    
-        public IEnumerator ShootCoroutine()
-        {
-            _canWalk = false;
-
             var playerTransform = transform;
             var playerPosition = playerTransform.position;
         
             Vector3 shootPosition = playerPosition;
             shootPosition.y += 0.5f * playerTransform.lossyScale.y;
-
-            Instantiate(_projectile, shootPosition, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_shootSound, playerPosition);
-        
-            yield return new WaitForSeconds(0.2f);
-
-            _canWalk = true;
-
-            yield return new WaitForSeconds(0.3f);
-            _canShoot = true;
+            projectile.transform.position = shootPosition;
+            projectile.gameObject.SetActive(true);
         }
+
+        public override void ProjectileHitCeiling(ProjectileViewElement projectile)
+        {
+            projectile.gameObject.SetActive(false);
+        }
+
+        public override void ProjectileHitBall(ProjectileViewElement projectile)
+        {
+            projectile.gameObject.SetActive(false);
+        }
+
+        public override void Inject(PlayerControllerElement injection)
+        {
+            _onShootButtonPressed += injection.ShootButtonPressed;
+        }
+        
 
         private void OnTriggerEnter2D(Collider2D target)
         {
