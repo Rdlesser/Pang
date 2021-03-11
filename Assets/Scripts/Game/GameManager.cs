@@ -34,7 +34,6 @@ namespace Game
 
         public override void OnPlayerHitByBall(PlayerViewElement player)
         {
-            Debug.Log("Death!");
             StartCoroutine(PlayerDeathRoutine(player));
         }
 

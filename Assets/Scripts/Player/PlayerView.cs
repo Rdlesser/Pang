@@ -43,16 +43,19 @@ namespace Player
 
         private void FixedUpdate()
         {
-            Walk();
+            float horizontal = Input.GetAxis("Horizontal");
+            if (horizontal != 0)
+            {
+                Walk(horizontal);
+            }
         }
 
 
-        private void Walk()
+        public void Walk(float horizontal)
         {
+            Debug.Log("Walk");
             var force = 0f;
             var velocity = Mathf.Abs(_rigidbody.velocity.x);
-
-            float horizontal = Input.GetAxis("Horizontal");
 
             if (horizontal > 0)
             {
@@ -74,6 +77,7 @@ namespace Player
             
             _rigidbody.AddForce(new Vector2(force, 0));
         }
+        
 
         public override void Shoot(ProjectileViewElement projectile)
         {
