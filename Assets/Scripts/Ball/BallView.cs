@@ -11,7 +11,7 @@ public class BallView : BallViewElement
     private Action<BallViewElement> _onBallHitGroundEvent;
     private Action<BallViewElement, MoveDirection> _onBallHitWallEvent;
     private Action<BallViewElement> _onBallHitProjectileEvent;
-    private Action<BallViewElement, BallViewElement> _onBallSplitEvent;
+    private Action<BallViewElement, BallViewElement, BallViewElement> _onBallSplitEvent;
     
 
 #endregion
@@ -55,7 +55,7 @@ public class BallView : BallViewElement
             _rightBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
             _rightBallViewScript = _rightBall.GetComponent<BallViewElement>();
 
-            _onBallSplitEvent?.Invoke(_leftBallViewScript, _rightBallViewScript);
+            _onBallSplitEvent?.Invoke(this, _leftBallViewScript, _rightBallViewScript);
             
         }
         

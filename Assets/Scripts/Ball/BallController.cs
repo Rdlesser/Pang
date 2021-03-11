@@ -7,6 +7,12 @@ namespace Ball
     public class BallController : BallControllerElement
     {
 
+    #region Events
+
+        private Action _onEmptyBallList;
+
+    #endregion
+
         public override void OnHitGround(BallViewElement ball)
         {
             ball.Bounce();
@@ -22,8 +28,18 @@ namespace Ball
             ball.SplitBall();
         }
 
-        public override void OnBallSplit(BallViewElement leftBall, BallViewElement rightBall)
+        public override void OnBallSplit(BallViewElement parentBall, BallViewElement leftBall, BallViewElement rightBall)
         {
+
+            _levelBalls.Remove(parentBall);
+            
+            if (leftBall == null)
+            {
+                if (_levelBalls.Count == 0)
+                {
+                    _onEmptyBallList?.Invoke();
+                }
+            }
             _levelBalls.Add(leftBall);
             _levelBalls.Add(rightBall);
             
@@ -36,6 +52,11 @@ namespace Ball
             leftBall.Inject(this);
             rightBall.Inject(this);
             
+        }
+
+        public override void Inject(GameManagerElement injection)
+        {
+            _onEmptyBallList += injection.OnPoppedAllBalls;
         }
     }
 }

@@ -59,7 +59,10 @@ namespace Player
 
         public void Walk(float horizontal)
         {
-            Debug.Log("Walk");
+            if (!_canMove)
+            {
+                return;
+            }
             var force = 0f;
             var velocity = Mathf.Abs(_rigidbody.velocity.x);
 

@@ -22,5 +22,12 @@ namespace Abstracts
         /// </summary>
         /// <param name="player"> The player hit by the ball </param>
         public abstract void OnPlayerHitByBall(PlayerViewElement player);
+
+        /// <summary>
+        /// Invoked when all balls have been destroyed
+        /// </summary>
+        public abstract void OnPoppedAllBalls();
+
+        public abstract void LoadNextLevel();
     }
 }

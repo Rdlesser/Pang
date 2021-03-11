@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
 
 namespace Abstracts
@@ -6,7 +7,7 @@ namespace Abstracts
     /// <summary>
     /// An abstract class of a ball controller
     /// </summary>
-    public abstract class BallControllerElement : MonoBehaviour
+    public abstract class BallControllerElement : MonoBehaviour, IInjectifiable<GameManagerElement>
     {
         // A List of all the level balls
         [SerializeField] protected List<BallViewElement> _levelBalls;
@@ -43,6 +44,8 @@ namespace Abstracts
         /// </summary>
         /// <param name="leftBall"></param>
         /// <param name="rightBall"></param>
-        public abstract void OnBallSplit(BallViewElement leftBall, BallViewElement rightBall);
+        public abstract void OnBallSplit(BallViewElement parentBall, BallViewElement leftBall, BallViewElement rightBall);
+
+        public abstract void Inject(GameManagerElement injection);
     }
 }

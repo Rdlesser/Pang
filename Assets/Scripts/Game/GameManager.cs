@@ -10,15 +10,20 @@ namespace Game
     public class GameManager : GameManagerElement
     {
         [SerializeField] private GameObject _deathPanel;
+        [SerializeField] private GameObject _winPanel;
+        [SerializeField] private BallControllerElement _ballController;
 
         private void Start()
         {
             _deathPanel.SetActive(false);
+            _winPanel.SetActive(false);
             Time.timeScale = 1;
+            _ballController.Inject(this);
         }
 
         private void Update()
         {
+            // Shortcuts for keyboard usage
             if (_deathPanel.activeInHierarchy)
             {
                 if (Input.GetKeyDown("r"))
@@ -35,6 +40,16 @@ namespace Game
         public override void OnPlayerHitByBall(PlayerViewElement player)
         {
             StartCoroutine(PlayerDeathRoutine(player));
+        }
+
+        public override void OnPoppedAllBalls()
+        {
+            _winPanel.SetActive(true);
+        }
+
+        public override void LoadNextLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         private IEnumerator PlayerDeathRoutine(PlayerViewElement player)
