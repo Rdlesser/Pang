@@ -29,9 +29,14 @@ namespace Player
             projectile.gameObject.SetActive(false);
         }
 
-        public override void PlayerDied(PlayerViewElement obj)
+        public override void PlayerDied(PlayerViewElement player)
         {
             _canShoot = false;
+        }
+
+        public override void PreventPlayerMovement()
+        {
+            _playerView.PreventMovement();
         }
     }
 }

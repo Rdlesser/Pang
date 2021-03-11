@@ -12,6 +12,7 @@ namespace Game
         [SerializeField] private GameObject _deathPanel;
         [SerializeField] private GameObject _winPanel;
         [SerializeField] private BallControllerElement _ballController;
+        [SerializeField] private PlayerControllerElement _playerController;
 
         private void Start()
         {
@@ -44,6 +45,7 @@ namespace Game
 
         public override void OnPoppedAllBalls()
         {
+            _playerController.PreventPlayerMovement();
             _winPanel.SetActive(true);
         }
 
@@ -54,7 +56,7 @@ namespace Game
 
         private IEnumerator PlayerDeathRoutine(PlayerViewElement player)
         {
-            player.Die();
+            player.PreventMovement();
             yield return new WaitForSeconds(2.7f);
             Time.timeScale = 0;
             _deathPanel.SetActive(true);

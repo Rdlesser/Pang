@@ -39,6 +39,7 @@ namespace Ball
                 {
                     _onEmptyBallList?.Invoke();
                 }
+                return;
             }
             _levelBalls.Add(leftBall);
             _levelBalls.Add(rightBall);

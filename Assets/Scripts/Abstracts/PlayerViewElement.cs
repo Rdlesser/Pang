@@ -36,7 +36,7 @@ namespace Abstracts
         /// <summary>
         /// Method called when the player needs to react to death
         /// </summary>
-        public abstract void Die();
+        public abstract void PreventMovement();
         
         public abstract void Inject(PlayerControllerElement injection);
 

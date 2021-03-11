@@ -79,5 +79,7 @@ namespace Abstracts
         /// </summary>
         /// <param name="player">The player who died</param>
         public abstract void PlayerDied(PlayerViewElement player);
+
+        public abstract void PreventPlayerMovement();
     }
 }

@@ -55,10 +55,10 @@ public class BallView : BallViewElement
             _rightBall = Instantiate(_childBall, ballPosition, Quaternion.identity);
             _rightBallViewScript = _rightBall.GetComponent<BallViewElement>();
 
-            _onBallSplitEvent?.Invoke(this, _leftBallViewScript, _rightBallViewScript);
+            
             
         }
-        
+        _onBallSplitEvent?.Invoke(this, _leftBallViewScript, _rightBallViewScript);
         AudioSource.PlayClipAtPoint(_popSounds[Random.Range(0, _popSounds.Length)], transform.position);
         Destroy(gameObject);
     }

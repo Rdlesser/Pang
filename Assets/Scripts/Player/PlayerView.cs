@@ -100,7 +100,7 @@ namespace Player
             AudioSource.PlayClipAtPoint(_shootSound, transform.position);
         }
 
-        public override void Die()
+        public override void PreventMovement()
         {
             _animator.SetTrigger(DieAnimatorTrigger);
             _canMove = false;
