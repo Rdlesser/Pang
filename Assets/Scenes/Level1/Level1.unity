@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 964772210}
   - component: {fileID: 964772209}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: DeathPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1386,6 +1386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _players:
   - {fileID: 1230282987}
+  _deathPanel: {fileID: 964772207}
 --- !u!4 &2035755223
 Transform:
   m_ObjectHideFlags: 0
