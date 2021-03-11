@@ -5,12 +5,17 @@ namespace Player
     public class PlayerController : PlayerControllerElement
     {
         
+        private bool _canShoot = true;
+        
         public override void ShootButtonPressed(PlayerViewElement player)
         {
-            var projectile = GetPooledAmmo();
-            if (projectile != null)
+            if (_canShoot)
             {
-                player.Shoot(projectile);
+                var projectile = GetPooledAmmo();
+                if (projectile != null)
+                {
+                    player.Shoot(projectile);
+                }
             }
         }
 
@@ -22,6 +27,11 @@ namespace Player
         public override void ProjectileHitBall(ProjectileViewElement projectile)
         {
             projectile.gameObject.SetActive(false);
+        }
+
+        public override void PlayerDied(PlayerViewElement obj)
+        {
+            _canShoot = false;
         }
     }
 }

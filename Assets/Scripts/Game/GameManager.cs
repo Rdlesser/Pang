@@ -40,7 +40,7 @@ namespace Game
         private IEnumerator PlayerDeathRoutine(PlayerViewElement player)
         {
             player.Die();
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.7f);
             Time.timeScale = 0;
             _deathPanel.SetActive(true);
             

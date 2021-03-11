@@ -63,5 +63,7 @@ namespace Abstracts
         /// </summary>
         /// <param name="projectile"> The projectile that hit a ball </param>
         public abstract void ProjectileHitBall(ProjectileViewElement projectile);
+
+        public abstract void PlayerDied(PlayerViewElement obj);
     }
 }

@@ -21,6 +21,8 @@ namespace Player
         private Animator _animator;
         private static readonly int DieAnimatorTrigger = Animator.StringToHash("Die");
 
+        private bool _canMove = true;
+
     #endregion
 
         private void Awake()
@@ -43,6 +45,10 @@ namespace Player
 
         private void FixedUpdate()
         {
+            if (!_canMove)
+            {
+                return;
+            }
             float horizontal = Input.GetAxis("Horizontal");
             if (horizontal != 0)
             {
@@ -99,6 +105,7 @@ namespace Player
         public override void Inject(PlayerControllerElement injection)
         {
             _onShootButtonPressed += injection.ShootButtonPressed;
+            _onPlayerHitByBall += injection.PlayerDied;
         }
 
         public override void Inject(GameManagerElement injection)
@@ -117,6 +124,7 @@ namespace Player
         public void OnPlayerHitByBall()
         {
             AudioSource.PlayClipAtPoint(_deathSound, transform.position);
+            _canMove = false;
             _onPlayerHitByBall?.Invoke(this);
         }
 
