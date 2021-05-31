@@ -4,11 +4,11 @@
  Welcome to my version of Pang!
  
  How to play:
-        - Use the arrow keys to move the player
+        - Use the arrow keys to move the player <br/>
         - Press 'Spacebar' to shoot
         
  Mobile:
-        - Use the arrow buttons to move the player (bottom left of the screen)
+        - Use the arrow buttons to move the player (bottom left of the screen) <br/>
         - Press the 'Target' button to shoot (bottom right of the screen)
         
         Game Objective:
